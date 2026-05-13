@@ -6,7 +6,11 @@ import java.util.*;
 
 public class ReservationRepository {
     private static ReservationRepository instance;
-    private final String FILE_PATH = "reservations.txt";
+    
+    // 1. 경로 수정: 현재 파일이 CRMS/data/reservations.txt에 있다면 아래와 같이 설정합니다.
+    // 프로젝트 루트 기준 상대 경로입니다.
+    private final String FILE_PATH = "CRMS/data/reservations.txt"; 
+    
     private List<Reservation> memoryData = new ArrayList<>();
 
     private ReservationRepository() {
@@ -14,24 +18,33 @@ public class ReservationRepository {
     }
 
     public static synchronized ReservationRepository getInstance() {
-        if (instance == null) instance = ReservationRepository.getInstance(); // 오타 주의: instance = new ReservationRepository(); 가 맞습니다.
+        // 2. 무한 루프 수정: ReservationRepository.getInstance()가 아니라 new로 생성해야 합니다.
+        if (instance == null) {
+            instance = new ReservationRepository(); 
+        }
         return instance;
     }
 
-    // 파일에서 데이터 로드
     private void load() {
         File file = new File(FILE_PATH);
+        
+        // 파일이 들어있는 폴더(data)가 없으면 생성해주는 로직 (안정성 추가)
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+
         if (!file.exists()) return;
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                memoryData.add(Reservation.fromCsv(line));
+                if (!line.trim().isEmpty()) { // 빈 줄 무시
+                    memoryData.add(Reservation.fromCsv(line));
+                }
             }
         } catch (IOException e) { e.printStackTrace(); }
     }
 
-    // 파일에 데이터 저장
     public void save() {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE_PATH))) {
             for (Reservation res : memoryData) {
@@ -44,6 +57,6 @@ public class ReservationRepository {
     
     public void add(Reservation res) {
         memoryData.add(res);
-        save(); // 실시간 반영 요구사항 충족
+        save();
     }
 }

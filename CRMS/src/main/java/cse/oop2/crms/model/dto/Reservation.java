@@ -36,6 +36,7 @@ public class Reservation {
     }
 
     // Getter & Setter
+    public String getUserId(){ return userId;}
     public String getResId() { return resId; }
     public String getRoomId() { return roomId; }
     public LocalDateTime getStart() { return start; }
