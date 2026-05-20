@@ -6,9 +6,7 @@ import java.util.*;
 
 public class ReservationRepository {
     private static ReservationRepository instance;
-    
-    // 1. 경로 수정: 현재 파일이 CRMS/data/reservations.txt에 있다면 아래와 같이 설정합니다.
-    // 프로젝트 루트 기준 상대 경로입니다.
+
     private final String FILE_PATH = "CRMS/data/reservations.txt"; 
     
     private List<Reservation> memoryData = new ArrayList<>();
@@ -18,7 +16,6 @@ public class ReservationRepository {
     }
 
     public static synchronized ReservationRepository getInstance() {
-        // 2. 무한 루프 수정: ReservationRepository.getInstance()가 아니라 new로 생성해야 합니다.
         if (instance == null) {
             instance = new ReservationRepository(); 
         }
