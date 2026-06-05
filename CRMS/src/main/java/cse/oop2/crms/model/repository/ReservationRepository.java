@@ -6,13 +6,11 @@ import java.util.*;
 
 public class ReservationRepository {
     private static ReservationRepository instance;
-    
-    // 1. 경로 수정: 현재 파일이 data/reservations.txt에 있다면 아래와 같이 설정합니다.
+
     // 프로젝트 루트 기준 상대 경로입니다.
     private final String FILE_PATH = "data/reservations.txt"; 
     
     private List<Reservation> memoryData = new ArrayList<>();
-
     private ReservationRepository() {
         load();
     }

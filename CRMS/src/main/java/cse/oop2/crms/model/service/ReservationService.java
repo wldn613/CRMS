@@ -57,9 +57,7 @@ public class ReservationService {
 
     // 교수 우선 예약
     // 학생 예약 강제 취소 + 알림
-    public void forceProfessorReservation(
-            Reservation professorRes
-    ) {
+    public void forceProfessorReservation(Reservation professorRes) {
         if(hasProfessorReservation(
                 professorRes.getUserId()))
         {

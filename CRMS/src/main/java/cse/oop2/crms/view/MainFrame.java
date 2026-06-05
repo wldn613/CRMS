@@ -155,39 +155,23 @@ public class MainFrame extends JFrame {
                 user.getRole();
 
         if(role.equals("STUDENT")) {
-
-            tabbedPane.addTab(
-                    "학생 예약",
-                    new StudentReservationPanel(
-                            reservationService
-                    )
+            tabbedPane.addTab("학생 예약",
+                    new StudentReservationPanel(reservationService)
             );
         }
 
         else if(role.equals("PROFESSOR")) {
-
-            tabbedPane.addTab(
-                    "교수 예약",
-                    new ProfessorReservationPanel(
-                            reservationService
-                    )
+            tabbedPane.addTab("교수 예약",
+                    new ProfessorReservationPanel(reservationService)
             );
         }
 
         else if(role.equals("ASSISTANT")) {
-
-            tabbedPane.addTab(
-                    "조교 관리",
-                    new AssistantManagementPanel(
-                            reservationService
-                    )
+            tabbedPane.addTab("조교 관리",
+                    new AssistantManagementPanel(reservationService)
             );
         }
-
-        cardLayout.show(
-                mainContainer,
-                "SYSTEM"
-        );
+        cardLayout.show(mainContainer,"SYSTEM");
     }
 
     /**
